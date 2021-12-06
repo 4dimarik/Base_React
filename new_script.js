@@ -26,14 +26,37 @@ class Business {
     this.data = data;
     this.course = course;
     this.director = director;
-    this.teacher = teacher || 'Максим';
-    this.sumTech = [...data.react, ...data.add, ' и другие'].join(' ');
-    this.allModule = data.cash.reduce((total, item) => total + item, 0);
-    this.command = this.setCommand(employers);
+    this.teacher = teacher;
+    this.sumTech = data;
+    this.allModule = data.cash;
+    this.command = employers;
   }
-  setCommand(employers) {
+  get teacher() {
+    return this._teacher;
+  }
+  set teacher(teacher) {
+    this._teacher = teacher || 'Максим';
+  }
+  get sumTech() {
+    return this._sumTech;
+  }
+  set sumTech(data) {
+    this._sumTech = [...data.react, ...data.add, ' и другие'].join(' ');
+  }
+
+  get allModule() {
+    return this._allModule;
+  }
+
+  set allModule(cash) {
+    this._allModule = cash.reduce((total, item) => total + item, 0);
+  }
+  get command() {
+    return this._command;
+  }
+  set command(employers) {
     let command = employers.filter((employer) => employer.length > 0 && employer.trim() !== '');
-    return command.map((member) => {
+    this._command = command.map((member) => {
       let [firstChar, ...secondChars] = member.toLowerCase().trim();
       return firstChar.toUpperCase() + secondChars.join('');
     });
